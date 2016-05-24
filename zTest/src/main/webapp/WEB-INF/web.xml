@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns="http://java.sun.com/xml/ns/javaee" 
+   xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+   http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   id="WebApp_ID" version="2.5">
+  <display-name>zTest</display-name>
+  
+<!--   root 최초 선언 ContextLoaderListener 을 이용 공통빈 설정  -->
+  	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+		</param-value>
+	</context-param>
+	
+  	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+  	
+<!--   <servlet> -->
+<!--     <servlet-name>action</servlet-name> -->
+<!--     <servlet-class>com.ztest.mainServlet</servlet-class> -->
+<!--   </servlet> -->
+<!--   <servlet-mapping> -->
+<!--     <servlet-name>action</servlet-name> -->
+<!--     <url-pattern>/main</url-pattern> -->
+<!--   </servlet-mapping> -->
+
+<!-- spring에서 제공DispatcherServlet을 이용해 웹개발을 한다면 앞으로 서블릿 파일을 만들 필요도 없어짐과 
+		동시에 획기적이고 놀라운 @MVC의 혜택을 얻을 수 있다 -->
+	<servlet>
+		<servlet-name>mainServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>mainServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

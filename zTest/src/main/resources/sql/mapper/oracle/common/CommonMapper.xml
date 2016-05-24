@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommonMapper">
+
+<select id="selectTeamList" resultType="com.ztest.vo.Team">
+		    SELECT T.T_ID AS T_ID
+				, T.TEAM_NAME AS TEAM_NAME
+				, M.ID AS ID
+				, M.NAME AS NAME
+				, M.AGE AS AGE
+			FROM TEAM T 
+					JOIN 
+					MEMBER M 
+					ON T.T_ID = M.T_ID
+</select>
+
+</mapper>
