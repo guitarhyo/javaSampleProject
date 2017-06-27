@@ -14,7 +14,7 @@
 	<bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="0" />
 	</bean>
-	
+
 	<!-- ==================================================================== -->
 	<!-- viewResolver-jsp와 name을 매핑 -->
 	<!-- controller에서 처리되어 return 되어지는 string값의 view 파일명 앞에 -->
@@ -26,6 +26,7 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="2"/>
 	</bean>
+	
 	
 	<!-- ==================================================================== -->
 	<!-- web.xml 의 servlet-mapping의 url-pattern을 "/" 이외의 것으로 할때 필수 설정 -->

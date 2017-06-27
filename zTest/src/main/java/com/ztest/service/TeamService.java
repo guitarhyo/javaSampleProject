@@ -2,6 +2,8 @@ package com.ztest.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ztest.vo.Team;
 
 /**
@@ -17,8 +19,13 @@ import com.ztest.vo.Team;
  * @Todo
  * </pre>
  */ 
+@Transactional
 public interface TeamService {
 
+	@Transactional(readOnly=true)
 	public List<Team> selectTeamList() throws Exception;
+	
+	@Transactional
+	public int testTransact() throws Exception;
 	
 }

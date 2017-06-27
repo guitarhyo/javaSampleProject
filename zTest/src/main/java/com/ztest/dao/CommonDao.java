@@ -20,9 +20,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ztest.service.TeamServiceImpl;
 import com.ztest.vo.Team;
 
 /**
@@ -42,7 +45,8 @@ import com.ztest.vo.Team;
 @Component
 public class CommonDao {
 //@Component 어노테이션이 적용된 클래스를 검색하여 빈으로 등록하게 된다.
-
+	private static final Logger logger = LoggerFactory.getLogger(CommonDao.class);
+	
 	// --------------------------------------------------------------------------
 	// # sqlSession 설정
 	//	 -- DataSource를 두개 쓰므로 @Resource(name="sqlSession") 사용
@@ -68,12 +72,26 @@ public class CommonDao {
 	 * </pre>
 	 */
 	public List<Team> selectTeamList() throws Exception {
-
+		logger.debug("CommonDao/selectTeamList :: START");
 		return sqlSession.selectList("CommonMapper.selectTeamList");
 
 	}
 	
-
+	/**
+	 * <pre>
+	 * 트랜잭션 테스트
+	 * @param 
+	 * @return int
+	 * @throws Exception
+	 * @since 2016. 7. 11. 
+	 * @author H.N.KIM
+	 * @비고
+	 *
+	 * </pre>
+	 */
+	public int testTransact()throws Exception {
+		return sqlSession.insert("CommonMapper.testTransact");
+	}
 	
 	public static void main(String[] args) {
 		//http://hyeonstorage.tistory.com/111  -참고

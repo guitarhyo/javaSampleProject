@@ -62,11 +62,12 @@
 		<constructor-arg index= "0" ref="sqlSessionFactory" />
 	</bean>
 	
+	<!-- Mapper 스켄용 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-    <property name="basePackage" value="com.ztest.*"/>
-    <property name="annotationClass" value="com.ztest.mapper.TeamMapper"/>
+    	<property name="basePackage" value="com.ztest.mapper"/>
 	</bean>
-	
+
+
 	<!-- ==================================================================== -->
 	<!-- 트랜잭션 매니저 빈을 생성한다.(커밋,롤백 처리) -->
 	<!-- 반듯이 servlet-context.xml 에 -->

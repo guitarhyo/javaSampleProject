@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ztest.dao.CommonDao;
+import com.ztest.mapper.TeamMapper;
 import com.ztest.vo.Team;
 
 /**
@@ -26,11 +29,17 @@ import com.ztest.vo.Team;
 @Service
 public class TeamServiceImpl implements TeamService{
 
+	private static final Logger logger = LoggerFactory.getLogger(TeamServiceImpl.class);
+	
+	
 	// --------------------------------------------------------------------------
 	// # DAO 설정
 	// --------------------------------------------------------------------------
 	@Resource(name="commonDao")
 	private CommonDao commonDao;
+	
+	@Autowired
+	private TeamMapper teamMapper;
 
 	/**
 	 * <pre>
@@ -46,11 +55,35 @@ public class TeamServiceImpl implements TeamService{
 	 */
 	@Override
 	public List<Team> selectTeamList() throws Exception {
+		logger.debug("TeamServiceImpl/selectTeamList :: START");
 		List<Team> teamList =null;
-		teamList = commonDao.selectTeamList();
+//		teamList = commonDao.selectTeamList();
+		teamList = teamMapper.selectTeamList();
 		
-		System.out.println(teamList.toString());
 		return teamList;
+	}
+	
+	/**
+	 * <pre>
+	 * 트랜잭션 테스트
+	 * @param 
+	 * @return int
+	 * @throws Exception
+	 * @date 2016-07-11
+	 * @author H.N.Kim
+	 * @비고
+	 *
+	 * </pre>
+	 */
+	@Override
+	public int testTransact() throws Exception {
+		int ret = commonDao.testTransact();
+		
+		//강제 exception을 날려보자
+		String str = null;
+		str.length();
+		
+		return ret;
 	}
 	
 	

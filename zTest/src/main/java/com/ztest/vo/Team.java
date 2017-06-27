@@ -1,5 +1,7 @@
 package com.ztest.vo;
 
+import com.ztest.testAnnotaion;
+
 public class Team {
 
 	private int t_id;
@@ -8,6 +10,11 @@ public class Team {
 	private String name;
 	private String age;
 	
+	
+	@testAnnotaion
+	public void hello(){
+		System.out.println("hello");
+	}
 	
 	/**
 	 * @return the t_id

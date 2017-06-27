@@ -15,4 +15,9 @@
 					ON T.T_ID = M.T_ID
 </select>
 
+<insert id="testTransact">
+    INSERT INTO TEAM (T_ID,TEAM_NAME)
+    VALUES(SEQ_TEAM_ID.NEXTVAL,'test')
+    
+</insert>
 </mapper>
