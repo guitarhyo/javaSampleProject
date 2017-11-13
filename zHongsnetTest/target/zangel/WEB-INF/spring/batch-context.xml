@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/batch     http://www.springframework.org/schema/batch/spring-batch.xsd">
+	
+	<!-- Batch List Config -->
+	<context:property-placeholder location="/WEB-INF/spring/batch.properties" /> 
+	
+<!-- 	실행할 트리거 정의 -->
+	<beans:bean id="schedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+		scope="singleton">
+		<beans:property name="quartzProperties">
+			<beans:props>
+				<beans:prop key="org.quartz.scheduler.skipUpdateCheck">true</beans:prop><!-- 	Trigger 속성을 따로 사용 한다면 업데이트 확인을 하지 않도록 설정한다 -->
+			</beans:props>
+		</beans:property>
+		<beans:property name="triggers">
+			<beans:list>
+				<beans:ref bean="commonTrigger" /> <!-- 	Trigger추가 트리거를 여러개 가능 -->
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+	   <!-- 	commonTrigger 설정 : 해당 job을 연결  및 cronExpression.trigger 기준에 따른다.-->
+	   <!-- startDelay 최초 시작시  1초후에 start -->
+		<beans:bean id="commonTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+		p:jobDetail-ref="commonJob" p:startDelay="1000" p:cronExpression="${cronExpression.trigger}" />
+		
+		<!-- Batch job 테스크 연결 및 설정  durability 은 한번만 사용을 할것인지 계속 사용할 것인지 옵션  -->
+		<beans:bean name="commonJob"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
+		p:jobClass="com.ztest.batch.CommonJob" p:durability="true">
+		 <!-- 실제스케줄링될 JOB-->
+		<beans:property name="jobDataAsMap">
+			<beans:map>
+				<beans:entry key="commonTask" value-ref="commonTask" />
+				<beans:entry key="isRun" value="${cronExpression.trigger.run}"/>
+			</beans:map>
+		</beans:property>
+	</beans:bean>
+	
+		<!-- 실제 실행되는 프로세스 -->
+	<beans:bean id="commonTask"
+		class="com.ztest.batch.CommonTask" />
+	
+</beans:beans>

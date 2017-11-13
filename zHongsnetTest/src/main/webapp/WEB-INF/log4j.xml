@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+	<!-- #################################################################### -->
+	<!-- Console/File Setting -->
+	<!-- #################################################################### -->
+	<!-- Console -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyMMdd HHmmss}][%-5p][%-20.20c{1}][%-15.15M][%5L]%m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.StringMatchFilter">
+			<param name="StringToMatch" value="Result" />
+			<param name="AcceptOnMatch" value="false" />
+		</filter>
+	</appender>
+
+	
+
+	<!-- #################################################################### -->
+	<!-- Log Rule -->
+	<!-- #################################################################### -->
+<!--   <root> -->
+<!--     <priority value="debug" /> -->
+<!--     <appender-ref ref="console"/> -->
+<!--   </root> -->
+  
+  
+  
+	
+	<logger name="com.ztest" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+	</logger>
+
+	<!-- Sql Loggers -->
+<!-- Mybatis 3.1까지는 java.sql.Connection, java.sql.PreparedStatement를 logger name로 지정해서 로그레벨을 debug로 선언해야했습니다.
+ Mybatis 3.2부터는 mybatis에서 지정하는 namespace별로 로그레벨을 지정할 수 있습니다. -->
+ 
+<!-- 	<category name="java.sql" additivity="false"> -->
+<!-- 		<level value="debug" /> -->
+
+<!--  Mapper.xml namespace별로 로그레벨을 지정 -->
+<!-- 	<logger name="CommonMapper" > -->
+<!--     	<level value="debug" /> -->
+<!--     	<appender-ref ref="console" /> -->
+<!--     </logger> -->
+
+<!--  Mapper.xml namespace ID 별로도 로그레벨을 지정 가능 -->		   
+	<logger name="CommonMapper.selectTeamList" >
+    	<level value="debug" />
+    	<appender-ref ref="console" />
+    </logger>
+	
+<!-- 	</category> -->
+
+<!-- 	<logger name="java.sql.Connection"> -->
+<!-- 	    <level value="debug">         -->
+<!-- 	</level></logger> -->
+<!-- 	 <logger name="java.sql.Statement"> -->
+<!-- 	    <level value="debug"> -->
+<!-- 	</level></logger> -->
+<!-- 	 <logger name="java.sql.PreparedStatement"> -->
+<!-- 	    <level value="debug"> -->
+<!-- 	</level></logger> -->
+<!-- 	 <logger name="java.sql.ResultSet"> -->
+<!-- 	    <level value="debug"> -->
+<!-- 	</level></logger> -->
+
+	<!-- Sql time information, post execution -->
+<!-- 	<category name="jdbc.sqltiming" additivity="true"> -->
+<!-- 		<level value="debug" /> -->
+<!-- 	</category> -->
+
+
+	<!-- 3rdparty Loggers -->
+<!-- 	<logger name="org.springframework.core"> -->
+<!-- 		<level value="debug" /> -->
+<!-- 	</logger> -->
+
+<!-- 	<logger name="org.springframework.beans"> -->
+<!-- 		<level value="debug" /> -->
+<!-- 	</logger> -->
+
+<!-- 	<logger name="org.springframework.context"> -->
+<!-- 		<level value="debug" /> -->
+<!-- 	</logger> -->
+
+<!-- 	<logger name="org.springframework.web"> -->
+<!-- 		<level value="debug" /> -->
+<!-- 	</logger> -->
+
+<!--   <root> -->
+<!--     <priority value="debug" /> -->
+<!--     <appender-ref ref="console"/> -->
+<!--   </root> -->
+
+
+</log4j:configuration>
