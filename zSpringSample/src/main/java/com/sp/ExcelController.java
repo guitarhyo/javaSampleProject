@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
 
+import com.common.ExcelMultiSheetView;
 import com.common.ExcelView;
 
 @Controller
@@ -24,7 +25,7 @@ public class ExcelController {
 	//http://greatkim91.tistory.com/72
 	//http://syaku.tistory.com/301
 	@RequestMapping(value = "/api/excel")
-	public View reportExcelDownload2(final HttpServletResponse response,
+	public View excel(final HttpServletResponse response,
 			@RequestParam(value = "reqData", required = false, defaultValue = "") final String reqData, final Model model) throws Exception {
 
 		try {
@@ -68,5 +69,78 @@ public class ExcelController {
 
 	}
 
+	
+	@RequestMapping(value = "/api/excelMulti")
+	public View excel2(final HttpServletResponse response,
+			@RequestParam(value = "reqData", required = false, defaultValue = "") final String reqData, final Model model) throws Exception {
+
+		try {
+			//데이터 만들기
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+			
+			List<HashMap<String, Object>> sheetMaps = new ArrayList<HashMap<String, Object>>();//시트리스트
+			HashMap<String, Object> sheetMap = new HashMap<String, Object>();//각시트단위
+			
+			HashMap<String, Object> data = new HashMap<String, Object>();
+			List<HashMap<String, Object>> dataList = new ArrayList<HashMap<String, Object>>();
+			
+			List<String> sheetNames = new ArrayList<String>();//시트 이름 리스트
+			
+			sheetNames.add("홍길동");
+			data = new HashMap<String, Object>();
+			data.put("name", "홍길동");
+			data.put("age", "20");
+			data.put("address", "서울시");
+			dataList.add(data);
+			
+			data = new HashMap<String, Object>();
+			data.put("name", "홍길동");
+			data.put("age", "22");
+			data.put("address", "경기도");
+			dataList.add(data);
+			
+			sheetMap = new HashMap<String, Object>();
+			sheetMap.put("dataList", dataList);
+			sheetMap.put("count", dataList.size());
+			sheetMap.put("DownloadDate", sdf.format(new Date()));
+			sheetMaps.add(sheetMap);
+			
+			sheetNames.add("배트맨");
+			data = new HashMap<String, Object>();
+			dataList = new ArrayList<HashMap<String, Object>>();
+			 
+			data.put("name", "배트맨");
+			data.put("age", "30");
+			data.put("address", "경기도");
+			dataList.add(data);
+			sheetMap = new HashMap<String, Object>();
+			sheetMap.put("dataList", dataList);
+			sheetMap.put("count", dataList.size());
+			sheetMap.put("DownloadDate", sdf.format(new Date()));
+			sheetMaps.add(sheetMap);
+			
+			
+			sheetNames.add("슈퍼맨");
+			data = new HashMap<String, Object>();
+			 dataList = new ArrayList<HashMap<String, Object>>();
+			data.put("name", "슈퍼맨");
+			data.put("age", "20");
+			data.put("address", "부산");
+			dataList.add(data);
+			sheetMap = new HashMap<String, Object>();
+			sheetMap.put("dataList", dataList);
+			sheetMap.put("count", dataList.size());
+			sheetMap.put("DownloadDate", sdf.format(new Date()));
+			sheetMaps.add(sheetMap);
+			
+			model.addAttribute("sheetMaps",sheetMaps);
+			model.addAttribute("sheetNames",sheetNames);
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		
+		return new ExcelMultiSheetView();
+
+	}
 	
 }
