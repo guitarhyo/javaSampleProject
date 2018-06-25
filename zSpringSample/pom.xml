@@ -172,7 +172,22 @@
 		<version>1.0.5</version> 
 		</dependency>
 
-
+		<!-- CXF spring 4.2 이상은 3.x버전으로 사용하여야함-->  
+		<dependency>  
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-rt-frontend-jaxws</artifactId>
+		    <version>3.1.10</version>
+		</dependency>  
+		<dependency>  
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-rt-transports-http</artifactId>
+		    <version>3.1.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+			<version>3.1.10</version>
+		</dependency>
 	</dependencies>
 
 	

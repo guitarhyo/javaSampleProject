@@ -2,7 +2,8 @@
 <beans:beans xmlns="http://www.springframework.org/schema/util" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xmlns:beans="http://www.springframework.org/schema/beans"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+     xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
