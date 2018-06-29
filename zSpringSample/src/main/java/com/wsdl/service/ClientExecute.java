@@ -15,6 +15,8 @@ import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.wsdl.model.OrderProcess;
 
@@ -99,6 +101,11 @@ public class ClientExecute {
 		            System.out.println();
 		            System.out.println("Response SOAP Data:");
 		            
+		            //로그 보려면 아래와 같이
+//		        	ByteArrayOutputStream out = new ByteArrayOutputStream();
+//					soapResponse.writeTo(out);
+//					LOGGER.info(out.toString());
+		            
 		            Iterator it = soapResponse.getSOAPBody().getChildElements();
 		            while (it.hasNext()) {
 		                SOAPBodyElement bodyElement = (SOAPBodyElement) it.next();
@@ -110,6 +117,7 @@ public class ClientExecute {
 		                }
 		            }
 		            
+//		        	String url = getElementText(soapResponse.getSOAPBody().getElementsByTagName("TAG_URL")); 직적 가져오기위해서
 
 		            soapConnection.close();
 		        } catch (Exception e) {
@@ -118,6 +126,14 @@ public class ClientExecute {
 		        }
 		    }
 
+			private static String getElementText(final NodeList nodes) {
+				// check if the node exists and get the value
+				String strRet = null;
+				Node node = nodes.item(0);
+				strRet = node != null ? node.getTextContent() : "";
+				return strRet;
+			}
+			
 		    private static SOAPMessage createSOAPRequest(String soapAction) throws Exception {
 		        MessageFactory messageFactory = MessageFactory.newInstance();
 		        SOAPMessage soapMessage = messageFactory.createMessage();
