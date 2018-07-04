@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- logback.xml for local -->
+<configuration scan="true" scanPeriod="5 seconds">
+	<property name="LOG_HOME" value="C:/temp/logs" />
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!-- <pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{1000} - %msg%n</pattern> -->
+			<pattern>%d{HH:mm:ss.SSS} [%-5level] %-32logger{32} : %-4line - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+    <appender name="FILE_JDBC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/jdbc.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${LOG_HOME}/jdbc.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<!-- keep 10 days' worth of history -->
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%d] [%-24thread] %-5level : %-4n%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+    <appender name="WSDL_API" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/ccmp/wsdl.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${LOG_HOME}/ccmp/wsdl.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 10 days' worth of history -->
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d] [%-24thread] %-5level : %-4n%msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- ============================================================= -->
+    <!-- logger setting -->
+    <!-- ============================================================= -->
+    
+    
+    <logger name="WSDL" additivity="false">
+        <level value="debug" />
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="WSDL_API" />
+    </logger>
+    
+
+     <logger name="org.apache.cxf" level="INFO"/>
+     <logger name="org.apache.cxf.interceptor" additivity="true">
+        <level value="debug" />
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="WSDL_API" />
+    </logger>
+
+	<logger name="com.skmns" level="DEBUG"></logger>
+
+	<logger name="org.springframework" level="INFO"></logger>
+
+	<logger name="org.apache.ibatis" level="INFO"></logger>
+	<logger name="org.apache.commons.beanutils" level="INFO"></logger>
+
+	<logger name="org.mybatis.spring" level="INFO"></logger>
+	<!-- <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor" level="DEBUG"></logger> -->
+
+	<logger name="com.zaxxer.hikari.pool" level="INFO"></logger>
+
+	<logger name="log4jdbc.debug" level="WARN" />
+    <logger name="jdbc" level="WARN" />
+    <logger name="java.sql" level="WARN" />
+	<logger name="jdbc.sqltiming" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE_JDBC" />
+	</logger>
+
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

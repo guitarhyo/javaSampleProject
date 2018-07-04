@@ -21,7 +21,28 @@
 	
 	<context:component-scan base-package="com.wsdl" />	 
 	 <jaxws:endpoint 
-	  id="orderProcess" 
+	  id="OrderProcess" 
 	  implementor="com.wsdl.service.OrderProcessImpl" 
 	  address="/OrderProcess" />
+	  
+	  
+	<bean id="logInbound" class="org.apache.cxf.interceptor.LoggingInInterceptor"/>
+    <bean id="logOutbound" class="org.apache.cxf.interceptor.LoggingOutInterceptor"/>
+ 
+    <cxf:bus>
+        <cxf:inInterceptors>
+            <ref bean="logInbound"/>
+        </cxf:inInterceptors>
+        <cxf:outInterceptors>
+            <ref bean="logOutbound"/>
+        </cxf:outInterceptors>
+        <cxf:outFaultInterceptors>
+            <ref bean="logOutbound"/>
+        </cxf:outFaultInterceptors>
+        <cxf:inFaultInterceptors>
+            <ref bean="logInbound"/>
+        </cxf:inFaultInterceptors>
+    </cxf:bus> 
+    
+    
 	</beans>

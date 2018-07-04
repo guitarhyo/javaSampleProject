@@ -4,11 +4,12 @@
 	<display-name>zSpringSample</display-name>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>
+		<param-value><!-- 	scan 순서가 다름을 인지할것 -->
 		/WEB-INF/spring/root-context.xml
 		/WEB-INF/cxf/webservice_cxf.xml
 		</param-value>
 	</context-param>
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>

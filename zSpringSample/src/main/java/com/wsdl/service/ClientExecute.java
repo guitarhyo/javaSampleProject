@@ -19,6 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.wsdl.model.OrderProcess;
+import com.wsdl.model.ResRet;
 
 public class ClientExecute {
 
@@ -27,10 +28,10 @@ public class ClientExecute {
 		    	ClassPathXmlApplicationContext context  = new ClassPathXmlApplicationContext("classpath:conf/client_bean.xml");
 
 			     OrderProcess client = (OrderProcess)context.getBean("client");
+			     ResRet resRet = new ResRet();
+			      resRet = client.processOrder("test");
 			     
-			     String result = client.processOrder("aaa");
-			     
-			     System.out.println("result:"+result);
+			     System.out.println("result:"+resRet);
 
 		    	
 		  // SAAJ - SOAP Client Testing
