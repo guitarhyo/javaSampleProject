@@ -36,12 +36,12 @@ public class Interceptor extends HandlerInterceptorAdapter {
     /**
      * 세션 확인
      */
-    HttpSession session = request.getSession();
-    String sessionId = (String) session.getAttribute("USERSESSION");
-    if (sessionId == null || "".equals(sessionId)) {
-      response.sendRedirect("/login");
-      return false;
-    }
+//    HttpSession session = request.getSession();
+//    String sessionId = (String) session.getAttribute("USERSESSION");
+//    if (sessionId == null || "".equals(sessionId)) {
+//      response.sendRedirect("/login");
+//      return false;
+//    }
 
     return true;
   }
